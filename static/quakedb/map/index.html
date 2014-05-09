@@ -44,8 +44,21 @@
 
     </div>
     <script id="table" type="text/html">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <% _.each(data, function(key) { %>
+              <th><%= key %></th>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </script>
+
+<!--
       <div class="panel panel-success">
-        <div class="panel-heading">Attribute Data				
+        <div class="panel-heading">Attribute Data       
           <table class="table">
             <thead>
               <tr>
@@ -58,7 +71,7 @@
           </table>
         </div>
       </div>
-    </script>
+-->
     
     <script id="toggle-layers-template" type="text/html">
       <li>
