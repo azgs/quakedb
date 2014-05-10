@@ -26,6 +26,7 @@ data = [
   	serviceUrl: "data/earthquakes.json",
   	serviceType: "WFS",
   	active: true,
+    attributeTable: true,
   	layerOptions: {
 	    pointToLayer: function (feature, latlng) {
         var color,

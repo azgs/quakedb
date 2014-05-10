@@ -11,7 +11,9 @@ app.models.LayerModel = Backbone.Model.extend({
   	active: false,
   	detectRetina: true,
     isExtent: false,
-  	layerOptions: 'undefined'
+  	layerOptions: 'undefined',
+    attributeTable: false,
+    geoJson: "undefined",
   },
   initialize: function (options) {
   	var model = this;
@@ -29,9 +31,13 @@ app.models.GeoJSONLayer = app.models.LayerModel.extend({
     callback(layer);
   },
   getJSON: function (callback) {
-    if (this.get("serviceUrl")) {
-      d3.json(this.get("serviceUrl"), function (err, data) {
+    var model = this;
+    if (model.get("serviceUrl")) {
+      d3.json(model.get("serviceUrl"), function (err, data) {
         if (err) callback(err);
+        if (model.get("attributeTable")) {
+          model.set("geoJson", data)
+        }
         callback(data);
       }) 
     }

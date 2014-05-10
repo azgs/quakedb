@@ -22,3 +22,23 @@ app.views.ContentView = Backbone.View.extend({
   	}
   }
 });
+
+app.views.AttributeTableView = Backbone.View.extend({
+  initialize: function () {
+    this.template = _.template($("#attribute-table").html());
+    this.render();
+  },
+  render: function () {
+    var el = this.el,
+        template = this.template;
+    this.getFields(function (keys) {
+      $(el).append(template({
+        data: keys
+      }));
+    });
+  },
+  getFields: function (callback) {
+    var keys = Object.keys(this.attributes.features[0].properties);
+    callback(keys);
+  },
+})
