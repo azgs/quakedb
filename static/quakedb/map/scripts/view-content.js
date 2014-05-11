@@ -26,19 +26,37 @@ app.views.ContentView = Backbone.View.extend({
 app.views.AttributeTableView = Backbone.View.extend({
   initialize: function () {
     this.template = _.template($("#attribute-table").html());
-    this.render();
+    //this.render();
   },
   render: function () {
     var el = this.el,
         template = this.template;
-    this.getFields(function (keys) {
+    this.processData(function (data) {
       $(el).append(template({
-        data: keys
+        data: data
       }));
     });
   },
-  getFields: function (callback) {
-    var keys = Object.keys(this.attributes.features[0].properties);
-    callback(keys);
+  processData: function (callback) {
+    var keys = Object.keys(this.attributes.features[0].properties),
+        json = this.attributes.features,
+        features = [];
+
+    for (var i=0; i<json.length; i++) {
+      var feature = json[i].properties;
+      var record = [];
+      for (var key in feature) {
+        if (feature.hasOwnProperty(key)) {
+          record.push(feature[key]);
+        }
+      }
+      features.push(record);
+    };
+
+    var data = {
+      "fields": keys,
+      "features": features,
+    }
+    callback(data);
   },
-})
+});

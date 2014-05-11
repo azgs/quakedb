@@ -47,12 +47,20 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <% _.each(data, function(key) { %>
+            <% _.each(data.fields, function(key) { %>
               <th><%= key %></th>
             <% }); %>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <% _.each(data.features, function(record) { %>
+            <tr>
+              <% _.each(record, function(feature) { %>
+                <td><%= feature %></td>
+              <% }); %>
+            </tr>
+          <% }); %>
+        </tbody>
       </table>
     </script>
 

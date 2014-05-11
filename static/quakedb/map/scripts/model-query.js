@@ -18,6 +18,7 @@ app.models.QueryArea = Backbone.Model.extend({
   	app.map.on("draw:created", function (query) {
       featureGroup.clearLayers();
       featureGroup.addLayer(query.layer);
+      console.log(query);
   	})
   },
   getBounds: function (callback) {
