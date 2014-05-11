@@ -61,29 +61,19 @@ data = [
   }),
   new app.models.GeoJSONLayer({
   	id: "activefaults",
-  	layerName: "Active Faults",
+  	layerName: "Quarternary Active Faults",
   	serviceUrl: "data/activefaults.json",
   	serviceType: "WFS",
   	active: false,
     isExtent: true,
   	layerOptions: {
       style: function (feature) {
-        var color,
-          lineStyle = {
+        var lineStyle = {
+            color: "rgb(0,36,177)",
             weight: 3,
             fillOpacity: 0,
             opacity: 1,
-          }
-        var symbol = feature.properties.symbol;
-        if (symbol == "2.13.2") {
-          color = "rgb(37,177,0)";
-        } else if (symbol == "2.13.3") {
-          color = "rgb(0,36,177)";
-        } else if (symbol == "2.13.4") {
-          color = "rgb(139,0,177)";
-        }
-
-        lineStyle.color = color;
+          };
         return lineStyle;
       }
     }

@@ -34,7 +34,6 @@
             </li>
             <li><a id="query-control" href="#">Query Area</a></li>
             <li id="content-control"><a href="#">Attribute Table</a></li>
-            <li><a href="#">Download Data</a></li>
           </ul>
         </div>
       </div>
@@ -42,10 +41,10 @@
     <div id="map" class="col-md-12"></div>
     <div id="content-tab" class="hide-tab">
     </div>
-    
+
     <script id="attribute-table" type="text/html">
       <div id="query-results">
-        <table class="table table-striped">
+        <table class="table">
           <thead>
             <tr>
               <% _.each(data.fields, function(key) { %>
@@ -53,11 +52,11 @@
               <% }); %>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table-body">
             <% _.each(data.features, function(record) { %>
-              <tr>
-                <% _.each(record, function(feature) { %>
-                  <td><%= feature %></td>
+              <tr class=<%= record.id %>>
+                <% _.each(record.feature, function(attribute) { %>
+                  <td><%= attribute %></td>
                 <% }); %>
               </tr>
             <% }); %>

@@ -44,11 +44,16 @@ app.views.AttributeTableView = Backbone.View.extend({
         features = [];
 
     for (var i=0; i<json.length; i++) {
+      var id = json[i].id;
       var feature = json[i].properties;
-      var record = [];
+      var record = {
+        "id": "",
+        "feature": [],
+      };
       for (var key in feature) {
         if (feature.hasOwnProperty(key)) {
-          record.push(feature[key]);
+          record.id = id.replace(".", "-");
+          record.feature.push(feature[key]);
         }
       }
       features.push(record);

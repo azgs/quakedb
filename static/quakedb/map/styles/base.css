@@ -68,3 +68,15 @@ html, body {
   opacity: 1;
   overflow: auto;
 }
+
+.quake-highlight {
+  font-weight: bold;
+  color: white;
+  background-color: blue;
+}
+
+tbody tr:hover {
+  font-weight: bold;
+  color: white;
+  background-color: blue;
+}
