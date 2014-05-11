@@ -8,23 +8,18 @@ app.models.QueryArea = Backbone.Model.extend({
     queryLayerId: 'earthquakes' 
   },
   initialize: function () {
+    var queryModel = this;
     drawnItems = new L.FeatureGroup();
     this.set("featureGroup", drawnItems);
-    this.getQueryDataModel();
   },
-  makeQuery: function () {
+  makeQuery: function (callback) {
     new L.Draw.Rectangle(app.map).enable();
     var featureGroup = this.get("featureGroup");
   	app.map.on("draw:created", function (query) {
       featureGroup.clearLayers();
       featureGroup.addLayer(query.layer);
-      console.log(query);
+      var bounds = query.layer.getBounds();
+      callback(bounds);
   	})
   },
-  getBounds: function (callback) {
-    var featureGroup = this.get("featureGroup");
-    callback(featureGroup);
-  },
-  getQueryDataModel: function () {
-  }
 });

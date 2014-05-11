@@ -41,45 +41,30 @@
     </div>
     <div id="map" class="col-md-12"></div>
     <div id="content-tab" class="hide-tab">
-
     </div>
+    
     <script id="attribute-table" type="text/html">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <% _.each(data.fields, function(key) { %>
-              <th><%= key %></th>
-            <% }); %>
-          </tr>
-        </thead>
-        <tbody>
-          <% _.each(data.features, function(record) { %>
+      <div id="query-results">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <% _.each(record, function(feature) { %>
-                <td><%= feature %></td>
+              <% _.each(data.fields, function(key) { %>
+                <th><%= key %></th>
               <% }); %>
             </tr>
-          <% }); %>
-        </tbody>
-      </table>
-    </script>
-
-<!--
-      <div class="panel panel-success">
-        <div class="panel-heading">Attribute Data       
-          <table class="table">
-            <thead>
+          </thead>
+          <tbody>
+            <% _.each(data.features, function(record) { %>
               <tr>
-                <% _.each(data, function(key) { %>
-                <% _.each(key, function(k) { %>
-                <th><%= k %></th><% }) %> 
+                <% _.each(record, function(feature) { %>
+                  <td><%= feature %></td>
                 <% }); %>
               </tr>
-            </thead>
-          </table>
-        </div>
+            <% }); %>
+          </tbody>
+        </table>
       </div>
--->
+    </script>
     
     <script id="toggle-layers-template" type="text/html">
       <li>

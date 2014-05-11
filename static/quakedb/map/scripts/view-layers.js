@@ -17,9 +17,7 @@ app.views.BaseMapView = Backbone.View.extend({
 app.views.DataLayerView = Backbone.View.extend({
   initialize: function (options) {
     var view = this;
-    view.addDataToLayer(function (model) {
-      view.makeAttributeTable(model);
-    });
+    view.addDataToLayer();
     this.addToMap(this.findActiveLayers());
     this.template = _.template($("#toggle-layers-template").html());
   },
@@ -47,7 +45,7 @@ app.views.DataLayerView = Backbone.View.extend({
       model.get("layer").addTo(app.map);
     })
   },
-  addDataToLayer: function (callback) {
+  addDataToLayer: function () {
     this.collection.each(function (model) {
       var layer = model.get("layer");
       model.getJSON(function (data) {
@@ -56,7 +54,6 @@ app.views.DataLayerView = Backbone.View.extend({
           app.map.fitBounds(layer);
           model.set("isExtent", false);
         }
-        callback(model);
       });
     })
   },
@@ -70,15 +67,6 @@ app.views.DataLayerView = Backbone.View.extend({
     } else {
       model.set("active", true);
       app.map.addLayer(model.get("layer"));
-    }
-  },
-  makeAttributeTable: function (model) {
-    if (model.get("attributeTable")) {
-      var json = model.get("geoJson");
-      new app.views.AttributeTableView({
-        el: $("#content-tab"),
-        attributes: json,
-      })
     }
   },
 });

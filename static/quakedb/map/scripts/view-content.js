@@ -25,8 +25,9 @@ app.views.ContentView = Backbone.View.extend({
 
 app.views.AttributeTableView = Backbone.View.extend({
   initialize: function () {
+    $("#query-results").remove();
     this.template = _.template($("#attribute-table").html());
-    //this.render();
+    this.render();
   },
   render: function () {
     var el = this.el,
@@ -38,8 +39,8 @@ app.views.AttributeTableView = Backbone.View.extend({
     });
   },
   processData: function (callback) {
-    var keys = Object.keys(this.attributes.features[0].properties),
-        json = this.attributes.features,
+    var keys = Object.keys(this.attributes[0].properties),
+        json = this.attributes,
         features = [];
 
     for (var i=0; i<json.length; i++) {
