@@ -8,17 +8,6 @@ app.map = L.map('map', {
   zoom: 6,
 });
 
-// Instantiate basemap model/view
-app.baseMapView = new app.views.BaseMapView({
-  model: new app.models.TileLayer({
-    id: 'osm-basemap',
-    serviceUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    serviceType: 'WMS',
-    active: true,
-    detectRetina: true,
-  })
-}).render();
-
 data = [
   new app.models.GeoJSONLayer({
   	id: "earthquakes",
@@ -93,13 +82,43 @@ data = [
         return L.marker(latlng, {icon: icon});
       }
     }
-  })
+  }),
 ];
 
 app.dataLayerCollection = new app.models.LayerCollection(data);
 
+app.bingApiKey = "AvRe9bcvCMLvazRf2jV1W6FaNT40ABwWhH6gRYKxt72tgnoYwHV1BnWzZxbm7QJ2"
+baseLayers = [
+  new app.models.BingLayer({
+    id: "road",
+    layerName: "Road Map",
+    apiKey: app.bingApiKey,
+    bingType: "Road",
+    active: true,
+  }),
+  new app.models.BingLayer({
+    id: "aerial",
+    layerName: "Satellite Imagery",
+    apiKey: app.bingApiKey,
+    bingType: "Aerial",
+  }),
+  new app.models.BingLayer({
+    id: "aerial-labels",
+    layerName: "Imagery with Labels",
+    apiKey: app.bingApiKey,
+    bingType: "AerialWithLabels",
+  }),
+];
+
+app.baseLayerCollection = new app.models.LayerCollection(baseLayers);
+
+app.baseLayers = new app.views.BaseMapView({
+  el: $("#baselayers-dropmenu"),
+  collection: app.baseLayerCollection,
+}).render();
+
 app.layers = new app.views.DataLayerView({
-  el: $("#dropmenu").first(),
+  el: $("#datalayers-dropmenu").first(),
   collection: app.dataLayerCollection,
 }).render();
 

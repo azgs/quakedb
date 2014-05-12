@@ -27,9 +27,16 @@
           <ul class="nav navbar-nav">
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Toggle Layers <span class="caret"></span>
+                Base Layers <span class="caret"></span>
               </a>
-            <ul id="dropmenu" class="dropdown-menu" role="menu">
+            <ul id="baselayers-dropmenu" class="dropdown-menu" role="menu">
+            </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Data Layers <span class="caret"></span>
+              </a>
+            <ul id="datalayers-dropmenu" class="dropdown-menu" role="menu">
             </ul>
             </li>
             <li><a id="query-control" href="#">Query Area</a></li>
@@ -71,6 +78,12 @@
       </li>
     </script>
 
+    <script id="toggle-basemap-template" type="text/html">
+      <li>
+        <a id=<%= model.get("id") %> href="#"><%= model.get("layerName") %></a>
+      </li>
+    </script>
+
     <script src="vendor/leaflet-0.7.2.js"></script>
     <script src="vendor/jquery-1.11.0.js"></script>
     <script src="vendor/bootstrap-3.1.1.js"></script>
@@ -78,6 +91,7 @@
     <script src="vendor/backbone-1.1.2.js"></script>
     <script src="vendor/d3-v3.js" charset="utf-8"></script>
     <script src="vendor/leaflet.draw.js"></script>
+    <script src="vendor/Leaflet.Bing.js"></script>
     <script src="scripts/model-layers.js"></script>
     <script src="scripts/view-layers.js"></script>
     <script src="scripts/view-content.js"></script>

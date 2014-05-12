@@ -45,12 +45,15 @@ app.models.GeoJSONLayer = app.models.LayerModel.extend({
 });
 
 // Model for how we define a Leaflet Tile layer
-app.models.TileLayer = app.models.LayerModel.extend({
+app.models.BingLayer = app.models.LayerModel.extend({
   createLayer: function (callback) {
-  	if (this.get("serviceUrl")) {
-  	  var layer = new L.tileLayer(this.get("serviceUrl"));
-  	  callback(layer);
-  	}
+    var model = this;
+    if (model.get("apiKey") && model.get("bingType")) {
+      var layer = new L.BingLayer(model.get("apiKey"), {
+        type: model.get("bingType")
+      })
+      callback(layer);
+    }
   }
 });
 

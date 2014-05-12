@@ -6,11 +6,45 @@ app.views == null ? app.views = app.views = {} : app.views = app.views;
 // Render the basemap
 app.views.BaseMapView = Backbone.View.extend({
   initialize: function (options) {
-  	var active = this.findActiveModel();
-  	app.map.addLayer(active.get('layer'));
+    this.template = _.template($("#toggle-basemap-template").html());
+  	this.findActiveModel(function (model) {
+      app.map.addLayer(model.get('layer'));
+    });
   },
-  findActiveModel: function () {
-  	if (this.model.get('active')) return this.model;
+  render: function () {
+    var el = this.el,
+        template = this.template;
+    this.collection.each(function (model) {
+      return $(el).append(template({
+        model: model
+      }))
+    })
+  },
+  events: {
+    "click a": "switchBaseLayers"
+  },
+  findActiveModel: function (callback) {
+    this.collection.each(function (model) {
+      if (model.get('active')) {
+        callback(model);
+      };
+    })
+  },
+  switchBaseLayers: function (e) {
+    var toggle = $(e.currentTarget).attr("id"),
+        model = this.collection.get(toggle);
+    this.findActiveModel(function (activeModel) {
+      if (model.get("id") == activeModel.get("id")) {
+        return
+      }
+      var layer = model.get("layer");
+      app.map.addLayer(layer);
+      layer.bringToBack();
+      model.set("active", true);
+
+      app.map.removeLayer(activeModel.get("layer"));
+      activeModel.set("active", false);
+    })
   }
 });
 
